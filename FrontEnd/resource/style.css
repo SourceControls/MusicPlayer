@@ -1,0 +1,270 @@
+:root {
+  --primary-color: rgb(17, 118, 162);
+  --primary-color: rgb(100, 192, 231);
+  --sub-color: rgba(53, 96, 102, 0.5);
+  --sub-color2: rgba(238, 95, 76, 0.281);
+  --text-color: rgb(240, 240, 240);
+  --bg-color: rgba(104, 104, 104, 0.22);
+  --bg-color-dark: rgba(0, 0, 0, 0.259);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+body {
+  background-color: #f5f5f5;
+  background-image: linear-gradient(black, transparent), url('bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.lighter {
+  width: 99%;
+  height: 5px;
+  content: '';
+  position: absolute;
+  bottom: 0;
+}
+.player {
+  position: relative;
+  display: flex;
+  height: 80vh;
+  padding: 40px 0;
+  margin-top: 50px;
+}
+
+.btn-toggle-play .icon-pause {
+  display: none;
+}
+
+.btn-toggle-play.playing .icon-pause {
+  display: inline-block;
+}
+
+.btn-toggle-play.playing .icon-play {
+  display: none;
+}
+
+.dashboard {
+  padding: 16px 16px 14px;
+  background-color: var(--bg-color);
+  flex: 1;
+  position: relative;
+}
+
+/* HEADER */
+.song-inf {
+  display: flex;
+  padding-left: 40px;
+  padding-top: 40px;
+  position: relative;
+}
+header {
+  margin-left: 32px;
+  flex: 1;
+  position: relative;
+}
+
+.wave {
+  position: absolute;
+  width: 80%;
+  left: 0;
+  top: 40%;
+  height: 100px;
+}
+
+header h4 {
+  color: var(--primary-color);
+  font-size: 22px;
+  padding-left: 8px;
+  border-left: 2px solid var(--text-color);
+}
+
+header h2 {
+  color: var(--text-color);
+  font-size: 36px;
+}
+.playing-song-singer {
+  color: var(--text-color);
+  font-weight: bold;
+}
+.playing-song-singer span {
+  font-weight: 300;
+}
+/* CD */
+.cd {
+  display: inline-flex;
+  width: 250px;
+}
+
+.cd-thumb {
+  width: 100%;
+  padding-top: 100%;
+  border-radius: 50%;
+  background-color: #333;
+  background-size: cover;
+  margin: auto;
+}
+
+/* CONTROL */
+.control-box {
+  position: absolute;
+  bottom: 0;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.control {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 18px 0 8px 0;
+}
+
+.control .btn {
+  color: var(--text-color);
+  padding: 18px;
+  font-size: 18px;
+}
+
+.control .btn.active {
+  color: var(--primary-color);
+}
+
+.control .btn-toggle-play {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  font-size: 18px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+}
+
+.progress {
+  width: 100%;
+  -webkit-appearance: none;
+  height: 12px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+
+.progress::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12%;
+  max-width: 40px;
+  height: 12px;
+  background-color: var(--primary-color);
+}
+
+/* PLAYLIST */
+.playlist {
+  padding: 12px;
+  display: inline-block;
+  max-height: 90vh;
+  overflow-y: scroll;
+  background-color: var(--bg-color);
+  margin-left: 12px;
+}
+
+.song {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 8px 16px;
+  border-radius: 5px;
+  background-color: var(--bg-color-dark);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.song.active {
+  background-image: linear-gradient(90deg, var(--sub-color), var(--sub-color2));
+}
+
+.song:active {
+  opacity: 0.8;
+}
+
+.song.active .option,
+.song.active .author,
+.song.active .title {
+  color: #fff;
+}
+
+.song .thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-size: cover;
+  margin: 0 8px;
+}
+
+.song .body {
+  flex: 1;
+  padding: 0 16px;
+  color: var(--text-color);
+}
+
+.song .title {
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.song .author {
+  font-size: 12px;
+  color: var(--text-color);
+}
+
+.song .btn-option {
+  padding: 16px 8px;
+  color: var(--text-color);
+  font-size: 14px;
+  position: relative;
+}
+.btn-option.active .options {
+  display: flex;
+}
+.options {
+  position: absolute;
+  right: -10px;
+  top: -26px;
+  display: none;
+}
+
+.option {
+  white-space: nowrap;
+  padding: 6px 8px;
+  background-color: #333;
+}
+.options::after {
+  content: '';
+  display: block;
+  position: absolute;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+  border-width: 15px 20px;
+  right: 6px;
+  bottom: calc(-100% + 15px);
+}
+.option:hover {
+  filter: brightness(120%);
+}
