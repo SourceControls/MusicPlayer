@@ -36,6 +36,7 @@ html {
   position: absolute;
   bottom: 0;
 }
+
 .player {
   position: relative;
   display: flex;
@@ -70,6 +71,7 @@ html {
   padding-top: 40px;
   position: relative;
 }
+
 header {
   margin-left: 32px;
   flex: 1;
@@ -95,13 +97,16 @@ header h2 {
   color: var(--text-color);
   font-size: 36px;
 }
+
 .playing-song-singer {
   color: var(--text-color);
   font-weight: bold;
 }
+
 .playing-song-singer span {
   font-weight: 300;
 }
+
 /* CD */
 .cd {
   display: inline-flex;
@@ -125,6 +130,7 @@ header h2 {
   left: 50%;
   transform: translateX(-50%);
 }
+
 .control {
   display: flex;
   align-items: center;
@@ -225,7 +231,7 @@ header h2 {
 }
 
 .song .title {
-  font-size: 14px;
+  font-size: 18px;
   color: var(--text-color);
 }
 
@@ -240,9 +246,11 @@ header h2 {
   font-size: 14px;
   position: relative;
 }
+
 .btn-option.active .options {
   display: flex;
 }
+
 .options {
   position: absolute;
   right: -10px;
@@ -255,6 +263,7 @@ header h2 {
   padding: 6px 8px;
   background-color: #333;
 }
+
 .options::after {
   content: '';
   display: block;
@@ -265,6 +274,35 @@ header h2 {
   right: 6px;
   bottom: calc(-100% + 15px);
 }
+
 .option:hover {
   filter: brightness(120%);
+}
+
+
+.add-song {
+  display: flex;
+  position: absolute;
+  top: 32px;
+  color: var(--text-color);
+  margin-left: 2px;
+  z-index: 10;
+}
+
+
+.btn-add-song {
+  padding: 8px 16px;
+  border-radius: 5px;
+  background-color: var(--bg-color);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  margin-left: 32px;
+}
+
+.input-youtube-url {
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  border: none;
+  width: 50vw;
+  min-width: 200px;
 }

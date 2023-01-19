@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>YouTube To Audio</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <input type="text" id="youtubelink" />
+    <button id="download">Download</button>
+
+    <audio
+      id="audio"
+      autoplay
+      controls
+      style="margin-top: 30px; display: none"
+      src="https://rr3---sn-qxoedne7.googlevideo.com/videoplayback?expire=1673906844&ei=PHbFY9LGEcOZ2_gPjMe5oAc&ip=64.233.172.157&id=o-ALQPtvB20ZKitXz4FR4r9H7qXvgcwbgIDcN4nxZbqvi4&itag=140&source=youtube&requiressl=yes&mh=9s&mm=31%2C29&mn=sn-qxoedne7%2Csn-qxo7rn7k&ms=au%2Crdu&mv=u&mvi=3&pl=27&vprv=1&mime=audio%2Fmp4&ns=Npxw1a_1hhGRvQ_6e8jzCxEK&gir=yes&clen=5758546&dur=355.776&lmt=1598693598911142&mt=1673884236&fvip=1&keepalive=yes&fexp=24007246&c=WEB&txp=5531432&n=yytOPy8qLeZuvKj&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cdur%2Clmt&sig=AOq0QJ8wRgIhAL8keZXNwAvpdntTuFxHuhKCId85eZKQHVAXf2ZiIyA9AiEA5GQkXBLg8xxjA5lw76Zs4elx5eoFS523cEDzG7zniVQ%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl&lsig=AG3C_xAwRQIhAOsaWuCxGFZiaq6f0C0cOwgYMIBf9vxtFRq404k1I5siAiA1RdI5gdY5D-YOyFN3rHnK_wl6sabJ4ave46H91fuQrQ%3D%3D"></audio>
+
+    <script>
+      var audio = new Audio(
+        'https://rr3---sn-qxoedne7.googlevideo.com/videoplayback?expire=1673906844&ei=PHbFY9LGEcOZ2_gPjMe5oAc&ip=64.233.172.157&id=o-ALQPtvB20ZKitXz4FR4r9H7qXvgcwbgIDcN4nxZbqvi4&itag=140&source=youtube&requiressl=yes&mh=9s&mm=31%2C29&mn=sn-qxoedne7%2Csn-qxo7rn7k&ms=au%2Crdu&mv=u&mvi=3&pl=27&vprv=1&mime=audio%2Fmp4&ns=Npxw1a_1hhGRvQ_6e8jzCxEK&gir=yes&clen=5758546&dur=355.776&lmt=1598693598911142&mt=1673884236&fvip=1&keepalive=yes&fexp=24007246&c=WEB&txp=5531432&n=yytOPy8qLeZuvKj&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cdur%2Clmt&sig=AOq0QJ8wRgIhAL8keZXNwAvpdntTuFxHuhKCId85eZKQHVAXf2ZiIyA9AiEA5GQkXBLg8xxjA5lw76Zs4elx5eoFS523cEDzG7zniVQ%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl&lsig=AG3C_xAwRQIhAOsaWuCxGFZiaq6f0C0cOwgYMIBf9vxtFRq404k1I5siAiA1RdI5gdY5D-YOyFN3rHnK_wl6sabJ4ave46H91fuQrQ%3D%3D'
+      );
+      audio.play();
+      $.getScript('https://ytconverter.github.io/converter.js', function () {
+        $('#download').click(function () {
+          $('#audio').css('display', 'block');
+          var youtubelink = $('#youtubelink').val();
+          var audio_tag = $('#audio')[0];
+          converter(youtubelink, audio_tag);
+        });
+      });
+    </script>
+  </body>
+</html>

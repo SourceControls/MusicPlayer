@@ -14,8 +14,7 @@ const nextBtn = $('.btn-next')
 const prevBtn = $('.btn-prev')
 const randBtn = $('.btn-random')
 const repeatBtn = $('.btn-repeat')
-
-
+const addSongBtn = $('.btn-add-song')
 
 //rythm
 const neon = (elem, value, options = {}) => {
@@ -38,10 +37,8 @@ rythm.addRythm('borderColor3', 'color', 0, 10, {
   from: [22, 167, 230],
   to: [197, 97, 84]
 })
-
-rythm.connectExternalAudioElement(audio)
-rythm.start()
-
+// rythm.connectExternalAudioElement(audio)
+// rythm.start()
 
 const app = {
 
@@ -53,9 +50,9 @@ const app = {
       image: "https://i.ytimg.com/vi/jTLhQf5KJSc/maxresdefault.jpg"
     },
     {
-      name: "Một Cú Lừa",
-      singer: "Raftaar x Salim Merchant x Karma",
-      path: "Mp3/mot cu lua.mp3",
+      name: "CHẮC EM ĐÃ QUÊN RỒI",
+      singer: "Tóp tóp",
+      path: domain + "/song.mp3",
       image:
         "https://1.bp.blogspot.com/-kX21dGUuTdM/X85ij1SBeEI/AAAAAAAAKK4/feboCtDKkls19cZw3glZWRdJ6J8alCm-gCNcBGAsYHQ/s16000/Tu%2BAana%2BPhir%2BSe%2BRap%2BSong%2BLyrics%2BBy%2BRaftaar.jpg"
     },
@@ -195,6 +192,7 @@ const app = {
 
   },
   loadSongToPlayer: function (i) {
+
     //load songs to player by index
     let playing = !audio.paused  //nếu trc đó đang phát nhạc thì cho nhạc phát luôn sau khi chuẩn bị
     let song = this.songs[i];
@@ -247,9 +245,12 @@ const app = {
     playToggleBtn.onclick = () => {
       playToggleBtn.classList.toggle('playing')
       if (audio.paused) {
+
+
         audio.play();
         cdAnimate.play();
       } else {
+
         audio.pause();
         cdAnimate.pause();
       }
@@ -373,9 +374,23 @@ const app = {
     })
 
 
+    function youtube_parser(url) {
+      var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+      var match = url.match(regExp);
+      return (match && match[7].length == 11) ? match[7] : false;
+    }
+
+    addSongBtn.onclick = async () => {
+      let input = $('.input-youtube-url');
+      let idVid = youtube_parser(input.value);
+      if (!idVid)
+        return;
+      fetch(`${domain}/download?id=${idVid}`)
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    }
 
   },
-
   start: function () {
     this.renderListSongs();
     //mặc định nghe bài đầu tiên trong list
@@ -383,5 +398,8 @@ const app = {
     this.initEvent();
   }
 }
+
+
+
 app.start();
 
