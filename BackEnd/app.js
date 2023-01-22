@@ -33,7 +33,7 @@ YD.on("progress", function (progress) {
 
 const express = require('express')
 const app = express()
-const port = 8080
+const port = 80
 
 app.use(express.static(__dirname + '\\public'))
 app.use(cors({
@@ -41,12 +41,7 @@ app.use(cors({
   credentials: true,            //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 }));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
-
 let clients = [];
-
-
 app.get('/download', (req, res) => {
   YD.download(req.query.id);
 })
@@ -74,6 +69,10 @@ app.get('/SSE', (req, res) => {
 
 });
 
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + "\\public\\song.mp3")
+})
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })

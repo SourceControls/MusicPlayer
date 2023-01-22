@@ -37,8 +37,8 @@ rythm.addRythm('borderColor3', 'color', 0, 10, {
   from: [22, 167, 230],
   to: [197, 97, 84]
 })
-// rythm.connectExternalAudioElement(audio)
-// rythm.start()
+rythm.connectExternalAudioElement(audio)
+rythm.start()
 
 const app = {
 
@@ -52,7 +52,7 @@ const app = {
     {
       name: "CHẮC EM ĐÃ QUÊN RỒI",
       singer: "Tóp tóp",
-      path: domain + "/song.mp3",
+      path: domain + "/",
       image:
         "https://1.bp.blogspot.com/-kX21dGUuTdM/X85ij1SBeEI/AAAAAAAAKK4/feboCtDKkls19cZw3glZWRdJ6J8alCm-gCNcBGAsYHQ/s16000/Tu%2BAana%2BPhir%2BSe%2BRap%2BSong%2BLyrics%2BBy%2BRaftaar.jpg"
     },
