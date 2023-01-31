@@ -37,8 +37,8 @@ rythm.addRythm('borderColor3', 'color', 0, 10, {
   from: [22, 167, 230],
   to: [197, 97, 84]
 })
-rythm.connectExternalAudioElement(audio)
-rythm.start()
+// rythm.connectExternalAudioElement(audio)
+// rythm.start()
 
 const app = {
 
@@ -46,8 +46,8 @@ const app = {
     {
       name: "Em Hát Ai Nghe",
       singer: "Raftaar x Fortnite",
-      path: "Mp3/em hat ai nghe.mp3",
-      image: "https://i.ytimg.com/vi/jTLhQf5KJSc/maxresdefault.jpg"
+      path: "https://cdn.filestackcontent.com/DKLLDnISNOzoQeu7cb0A",
+      image: ""
     },
     {
       name: "CHẮC EM ĐÃ QUÊN RỒI",
