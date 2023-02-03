@@ -84,12 +84,16 @@ const app = {
       if (lastActiveSong) {
         lastActiveSong.classList.remove('active')
       }
-
-      rythm.setMusic('../song.mp3')
-      audio = rythm.player.audio
-      rythm.start()
       //load song mới
-      // audio.src = song.url;
+      rythm.setMusic(song.url)
+      audio = rythm.player.audio
+      //run progress
+      audio.ontimeupdate = () => {
+
+        if (audio.currentTime && !audio.paused) {  //!audio.paused là 1 phần trong fix bug khi tua
+          progress.value = audio.currentTime * 100 / audio.duration
+        }
+      }
       audio.dataSet = i;
       cdThum.setAttribute('style', `background-image: url("${song.image}")`)
       progress.value = 0;
@@ -99,11 +103,8 @@ const app = {
       let currentSong = $$('.song')[i];
       currentSong.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
       currentSong.classList.add('active')
-
-
-
-      // if (playing)
-      //   audio.play()
+      if (playing)
+        rythm.start();
     }
     else {
       alert('không tồn tại bài hát')
@@ -133,13 +134,10 @@ const app = {
     playToggleBtn.onclick = () => {
       playToggleBtn.classList.toggle('playing')
       if (audio.paused) {
-
-
-        audio.play();
+        rythm.start();
         cdAnimate.play();
       } else {
-
-        audio.pause();
+        rythm.stop();
         cdAnimate.pause();
       }
 
@@ -172,33 +170,34 @@ const app = {
     progress.onmousedown = () => {
       if (!audio.paused) {
         isMouseDown = true;
-        audio.pause();
+        rythm.stop();
         cdAnimate.pause();
       }
     }
     progress.onmouseup = () => {
       audio.currentTime = progress.value * audio.duration / 100
       if (isMouseDown) {
-        audio.play();
+        rythm.start();
         cdAnimate.play();
         isMouseDown = false;
       }
     }
 
-    //run progress
-    audio.ontimeupdate = () => {
-      if (audio.currentTime && !audio.paused) {  //!audio.paused là 1 phần trong fix bug khi tua
-        progress.value = audio.currentTime * 100 / audio.duration
-      }
-    }
+    // //run progress
+    // audio.ontimeupdate = () => {
+
+    //   if (audio.currentTime && !audio.paused) {  //!audio.paused là 1 phần trong fix bug khi tua
+    //     progress.value = audio.currentTime * 100 / audio.duration
+    //   }
+    // }
     //sau khi hết bài hát
     audio.onended = () => {
       if (this.repeatSong) {
-        audio.play()
+        rythm.start()
       }
       else {
         nextBtn.click()
-        audio.play()
+        rythm.start()
       }
     }
 
@@ -253,7 +252,7 @@ const app = {
         //nếu đang phát thì để nó phát tiếp
         if (!audio.paused) {
           app.loadSongToPlayer(i);
-          audio.play()
+          rythm.start()
         }
         else {
           app.loadSongToPlayer(i);

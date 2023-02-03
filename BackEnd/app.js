@@ -9,7 +9,7 @@ const express = require('express')
 const app = express()
 const port = 8080
 
-app.use(express.static(__dirname + '\\public'))
+app.use(express.static(__dirname + '/public'))
 app.use(cors({
   origin: '*',
   credentials: true,            //access-control-allow-credentials:true
@@ -73,7 +73,7 @@ app.get('/AddSong', async (req, res) => {
 
 app.get('/', (req, res) => {
   // response.setHeader("Access-Control-Allow-Origin", "*");
-  res.sendFile(__dirname + '\\public\\index.html')
+  res.sendFile(__dirname + '/public/index.html')
 })
 
 app.listen(port, () => {
