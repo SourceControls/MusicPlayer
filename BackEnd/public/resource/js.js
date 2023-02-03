@@ -15,7 +15,6 @@ const repeatBtn = $('.btn-repeat')
 const addSongBtn = $('.btn-add-song')
 
 
-
 //rythm
 const neon = (elem, value, options = {}) => {
   const from = options.from || [0, 0, 0]
@@ -40,9 +39,6 @@ rythm.addRythm('borderColor3', 'color', 0, 10, {
   to: [197, 97, 84]
 })
 
-// rythm.player.audio.crossOrigin = "anonymous";
-
-
 const app = {
 
   songs: undefined,
@@ -52,10 +48,11 @@ const app = {
 
     this.songs = await fetch(domain + '/GetListSong').then(rs => rs.json());
     let playList = $(".playlist")
+    playList.innerHTML = ''
     this.songs.forEach((e, i) => {
       playList.innerHTML += `
       <div class="song" data-set="${i}" >
-      <div class="thumb" style="background-image:url('${e.image}')">
+      <div class="thumb" style="background-image:url('${e.image_s}')">
       </div>
       <div class="body" src="">
         <h3 class="title">${e.name}</h3>
@@ -89,7 +86,6 @@ const app = {
       audio = rythm.player.audio
       //run progress
       audio.ontimeupdate = () => {
-
         if (audio.currentTime && !audio.paused) {  //!audio.paused là 1 phần trong fix bug khi tua
           progress.value = audio.currentTime * 100 / audio.duration
         }
@@ -252,7 +248,6 @@ const app = {
         //nếu đang phát thì để nó phát tiếp
         if (!audio.paused) {
           app.loadSongToPlayer(i);
-          rythm.start()
         }
         else {
           app.loadSongToPlayer(i);
@@ -276,12 +271,11 @@ const app = {
         .then((response) => response.json())
         .then((data) => console.log(data));
     }
-
   },
   start: async function () {
     await this.renderListSongs();
     //mặc định nghe bài đầu tiên trong list
-    // this.loadSongToPlayer(0)
+    this.loadSongToPlayer(0)
     this.initEvent();
   }
 }

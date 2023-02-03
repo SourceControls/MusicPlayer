@@ -299,10 +299,34 @@ header h2 {
   margin-left: 32px;
 }
 
+.wrapper {
+  width: 50vw;
+  min-width: 200px;
+  height: 100%;
+  position: relative;
+  height: auto;
+}
+
 .input-youtube-url {
+  width: 100%;
   color: var(--text-color);
   background-color: var(--bg-color);
   border: none;
-  width: 50vw;
-  min-width: 200px;
+  height: 100%;
+}
+
+
+.add-song-progress {
+  position: absolute;
+  background: var(--primary-color);
+  width: 0%;
+  height: 3px;
+  transition: 0.5s;
+}
+
+.cd-thumb,
+.thumb {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }

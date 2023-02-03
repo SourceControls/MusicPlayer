@@ -1,4 +1,6 @@
 var YoutubeMp3Downloader = require("youtube-mp3-downloader");
+const { collection, addDoc, getDocs } = require("firebase/firestore");
+const db = require("./firebase.js")
 
 
 //Configure YoutubeMp3Downloader with your settings
@@ -12,8 +14,22 @@ var YD = new YoutubeMp3Downloader({
 });
 
 
-YD.on("finished", function (err, data) {
+YD.on("finished", async function (err, data) {
+
+  const docRef = await addDoc(collection(db, "songs"), {
+    name: data.title,
+    youtubeUrl: data.youtubeUrl,
+    image: `https://img.youtube.com/vi/${data.videoId}/0.jpg`,
+    image_s: data.thumbnail,
+    singer: data.artist,
+    url: `${data.videoId}.mp3`,
+    id: data.videoId
+  });
   console.log(JSON.stringify(data));
+  var fs = require('fs');
+  fs.rename(data.file, `./public/${data.videoId}.mp3`, function (err) {
+    if (err) console.log('Rename ERROR: ' + err);
+  });
 });
 
 YD.on("error", function (error) {
@@ -23,7 +39,9 @@ YD.on("error", function (error) {
 YD.on("progress", function (progress) {
   console.log(JSON.stringify(progress));
   let clients = require("./app");
-  clients[0].res.write("data: " + JSON.stringify(progress.progress.percentage.toFixed()) + '\n\n')
+  clients.forEach(e => {
+    e.res.write("data: " + progress.progress.percentage.toFixed() + '\n\n')
+  });
 });
 
 module.exports = YD

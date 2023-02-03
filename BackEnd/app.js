@@ -1,6 +1,6 @@
 const db = require("./firebase.js")
 const { collection, addDoc, getDocs } = require("firebase/firestore");
-const { getStorage, ref, uploadBytesResumable, getDownloadURL } = require("firebase/storage")
+// const { getStorage, ref, uploadBytesResumable, getDownloadURL } = require("firebase/storage")
 var cors = require("cors")
 const YD = require("./YTD")
 
@@ -42,15 +42,10 @@ app.get('/SSE', (req, res) => {
     console.log(`${clientId} Connection closed`);
     clients = clients.filter(client => client.id !== clientId);
   });
-
 });
 
 
 app.get('/GetListSong', async (req, res) => {
-
-
-
-
 
   const querySnapshot = await getDocs(collection(db, "songs"));
   let songs = []
@@ -61,15 +56,6 @@ app.get('/GetListSong', async (req, res) => {
 })
 
 
-app.get('/AddSong', async (req, res) => {
-  // const docRef = await addDoc(collection(db, "users"), {
-  //   first: "Ada",
-  //   last: "Lovelace",
-  //   born: 1815
-  // });
-  // console.log("Document written with ID: ", docRef.id);
-})
-
 
 app.get('/', (req, res) => {
   // response.setHeader("Access-Control-Allow-Origin", "*");
@@ -79,6 +65,4 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-
-
 
