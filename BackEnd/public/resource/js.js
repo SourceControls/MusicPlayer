@@ -74,6 +74,7 @@ const app = {
 
     //load songs to player by index
     let playing = !audio.paused || false  //nếu trc đó đang phát nhạc thì cho nhạc phát luôn sau khi chuẩn bị
+    rythm.stop();
     let song = this.songs[i];
     if (song) {
       //hủy trạng thái active của song hiện tại
@@ -245,13 +246,7 @@ const app = {
     //click để chuyển nhạc
     songRendered.forEach((s, i) => {
       s.onclick = (e) => {
-        //nếu đang phát thì để nó phát tiếp
-        if (!audio.paused) {
-          app.loadSongToPlayer(i);
-        }
-        else {
-          app.loadSongToPlayer(i);
-        }
+        app.loadSongToPlayer(i);
       };
     })
 
