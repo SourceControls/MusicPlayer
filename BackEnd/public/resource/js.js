@@ -1,11 +1,9 @@
-//Object.defineProperty(this,'currentSong',{get:()=>{return this.songs[this.currentIndex]}})
-//tim hieu json.localstorage
 
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
 
 const playToggleBtn = $('.btn-toggle-play')
-const audio = $('#audio')
+var audio = $('#audio')
 const cdThum = $('.cd-thumb')
 const playingSongName = $('.playing-song-name')
 const playingSongSinger = $('.playing-song-singer')
@@ -42,8 +40,8 @@ rythm.addRythm('borderColor3', 'color', 0, 10, {
   to: [197, 97, 84]
 })
 
-// rythm.connectExternalAudioElement(audio)
-// rythm.start()
+// rythm.player.audio.crossOrigin = "anonymous";
+
 
 const app = {
 
@@ -78,7 +76,7 @@ const app = {
   loadSongToPlayer: function (i) {
 
     //load songs to player by index
-    let playing = !audio.paused  //nếu trc đó đang phát nhạc thì cho nhạc phát luôn sau khi chuẩn bị
+    let playing = !audio.paused || false  //nếu trc đó đang phát nhạc thì cho nhạc phát luôn sau khi chuẩn bị
     let song = this.songs[i];
     if (song) {
       //hủy trạng thái active của song hiện tại
@@ -86,8 +84,12 @@ const app = {
       if (lastActiveSong) {
         lastActiveSong.classList.remove('active')
       }
+
+      rythm.setMusic('../song.mp3')
+      audio = rythm.player.audio
+      rythm.start()
       //load song mới
-      audio.src = song.url;
+      // audio.src = song.url;
       audio.dataSet = i;
       cdThum.setAttribute('style', `background-image: url("${song.image}")`)
       progress.value = 0;
@@ -99,8 +101,9 @@ const app = {
       currentSong.classList.add('active')
 
 
-      if (playing)
-        audio.play()
+
+      // if (playing)
+      //   audio.play()
     }
     else {
       alert('không tồn tại bài hát')
@@ -279,7 +282,7 @@ const app = {
   start: async function () {
     await this.renderListSongs();
     //mặc định nghe bài đầu tiên trong list
-    this.loadSongToPlayer(0)
+    // this.loadSongToPlayer(0)
     this.initEvent();
   }
 }

@@ -48,12 +48,8 @@ app.get('/SSE', (req, res) => {
 
 app.get('/GetListSong', async (req, res) => {
 
-  // const docRef = await addDoc(collection(db, "users"), {
-  //   first: "Ada",
-  //   last: "Lovelace",
-  //   born: 1815
-  // });
-  // console.log("Document written with ID: ", docRef.id);
+
+
 
 
   const querySnapshot = await getDocs(collection(db, "songs"));
@@ -65,46 +61,21 @@ app.get('/GetListSong', async (req, res) => {
 })
 
 
-
-app.get('/', (req, res) => {
-  // response.setHeader("Access-Control-Allow-Origin", "*");
-  res.sendFile('index.html')
+app.get('/AddSong', async (req, res) => {
+  // const docRef = await addDoc(collection(db, "users"), {
+  //   first: "Ada",
+  //   last: "Lovelace",
+  //   born: 1815
+  // });
+  // console.log("Document written with ID: ", docRef.id);
 })
 
 
+app.get('/', (req, res) => {
+  // response.setHeader("Access-Control-Allow-Origin", "*");
+  res.sendFile(__dirname + '\\public\\index.html')
+})
 
-
-//save file to cloud storage
-// const storageRef = ref(getStorage(), 'song.mp3');
-// const metadata = {
-//   contentType: 'audio/mpeg',
-// };
-// var file = await require('fs').readFileSync('song.mp3');
-// const uploadTask = uploadBytesResumable(storageRef, file, metadata);
-
-// uploadTask.on('state_changed',
-//   (snapshot) => {
-//     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-//     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-//     console.log('Upload is ' + progress + '% done');
-//     switch (snapshot.state) {
-//       case 'paused':
-//         console.log('Upload is paused');
-//         break;
-//       case 'running':
-//         console.log('Upload is running');
-//         break;
-//     }
-//   },
-//   (error) => {
-//     console.log(error);
-//   },
-//   () => {
-//     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-//       console.log('File available at', downloadURL);
-//     });
-//   }
-// );
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
