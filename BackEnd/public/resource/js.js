@@ -262,7 +262,7 @@ const app = {
       let idVid = youtube_parser(input.value);
       if (!idVid)
         return;
-      fetch(`${domain}/download?id=${idVid}`)
+      fetch(`${domain}download?id=${idVid}`)
         .then((response) => response.json())
         .then((data) => console.log(data));
     }
