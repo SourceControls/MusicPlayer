@@ -46,7 +46,7 @@ const app = {
   repeatSong: false,
   renderListSongs: async function () {
 
-    this.songs = await fetch(domain + '/GetListSong').then(rs => rs.json());
+    this.songs = await fetch(domain + 'GetListSong').then(rs => rs.json());
     let playList = $(".playlist")
     playList.innerHTML = ''
     this.songs.forEach((e, i) => {

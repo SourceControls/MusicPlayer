@@ -73,14 +73,14 @@
   <div class="lighter rythm neon3 borderColor3 rythm-medium"></div>
   <!-- rythm -->
   <script>
-    const domain = "http://localhost:8080"
+    const domain = window.location.href;
   </script>
   <script src="./resource/rythm.js"></script>
   <script src="./resource/js.js"></script>
   <script>
 
     var source = new EventSource(
-      domain + '/SSE'
+      domain + 'SSE'
     );
     const addSongProgress = $('.add-song-progress')
     source.onmessage = (e) => {
