@@ -260,9 +260,11 @@ const app = {
     addSongBtn.onclick = async () => {
       let input = $('.input-youtube-url');
       let idVid = youtube_parser(input.value);
-      if (!idVid)
+      if (!idVid) {
+        alert('Url là link youtube')
         return;
-      fetch(`${domain}download?id=${idVid}`)
+      }
+      fetch(`${domain}Download?id=${idVid}`)
         .then((response) => response.json())
         .then((data) => console.log(data));
     }
