@@ -52,7 +52,7 @@ app.get('/GetListSong', async (req, res) => {
     songs.push({ id, ...doc.data() });
     //if song !exits, then redownload it
 
-    if (!fs.existsSync(`./public/songs/${id}.mp3`)) {
+    if (!fs.existsSync(`${__dirname}/public/songs/${id}.mp3`)) {
       console.log(`!EXITS ${doc.data().name}`);
       download(id)
     }
@@ -117,7 +117,7 @@ async function download(vidId) {
   //start downloading
   let url = `http://www.youtube.com/watch?v=${vidId}`
   let options = { format: 'mp3', "quality": 'highestaudio', "filter": 'audioonly' }
-  let songPath = `./public/songs/${vidId}.mp3`
+  let songPath = `${__dirname}/public/songs/${vidId}.mp3`
   console.log("Start download: " + vidId);
   ytdl(url, options)
     .pipe(fs.createWriteStream(songPath).on('finish', async () => {
