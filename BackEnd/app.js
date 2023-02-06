@@ -119,27 +119,33 @@ async function download(vidId) {
   let options = { format: 'mp3', "quality": 'highestaudio', "filter": 'audioonly' }
   let songPath = `${__dirname}/public/songs/${vidId}.mp3`
   console.log("Start download: " + vidId);
-  ytdl(url, options)
-    .pipe(fs.createWriteStream(songPath).on('finish', async () => {
-      //save to firestore
-      let vidInf = (await ytdl.getBasicInfo(`https://www.youtube.com/watch?v=${vidId}`)).videoDetails
-      let songInf = {
-        title: vidInf.title,
-        authorName: vidInf.author.name,
-        authorChannel: vidInf.author.channel_url,
-        length: vidInf.lengthSeconds,
-        thumbnail_s: vidInf.thumbnails[1].url,
-        thumbnail_l: vidInf.thumbnails[vidInf.thumbnails.length - 1].url,
-        youtubeUrl: vidInf.video_url,
-        songPath: `/songs/${vidId}.mp3`,
-        createdTimestamp: Timestamp.now()
-      }
-      await setDoc(doc(db, "songs", vidId), songInf)
-      console.log('Downloaded: ' + url);
+  let fstream = fs.createWriteStream(songPath)
+  fstream.on('finish', async () => {
+    //save to firestore
+    let vidInf = (await ytdl.getBasicInfo(`https://www.youtube.com/watch?v=${vidId}`)).videoDetails
+    let songInf = {
+      title: vidInf.title,
+      authorName: vidInf.author.name,
+      authorChannel: vidInf.author.channel_url,
+      length: vidInf.lengthSeconds,
+      thumbnail_s: vidInf.thumbnails[1].url,
+      thumbnail_l: vidInf.thumbnails[vidInf.thumbnails.length - 1].url,
+      youtubeUrl: vidInf.video_url,
+      songPath: `/songs/${vidId}.mp3`,
+      createdTimestamp: Timestamp.now()
+    }
+    await setDoc(doc(db, "songs", vidId), songInf)
+    console.log('Downloaded: ' + url);
 
-      reloadClient();
-    }));
+    reloadClient();
+  })
+  fstream.on('error', function (err) {
+    console.log("ERROR:" + err);
+  });
+  ytdl(url, options)
+    .pipe(fstream);
 }
+
 //dùng cho dev
 // updateAll()
 async function updateAll() {
