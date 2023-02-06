@@ -189,6 +189,7 @@ header h2 {
   overflow-y: scroll;
   background-color: var(--bg-color);
   margin-left: 12px;
+  max-width: 30vw;
 }
 
 .song {
@@ -292,27 +293,21 @@ header h2 {
 
 .btn-add-song {
   padding: 8px 16px;
-  border-radius: 5px;
   background-color: var(--bg-color);
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   margin-left: 32px;
 }
 
-.wrapper {
-  width: 50vw;
-  min-width: 200px;
-  height: 100%;
-  position: relative;
-  height: auto;
-}
+
 
 .input-youtube-url {
-  width: 100%;
+  width: 50vw;
+  min-width: 200px;
+  position: relative;
   color: var(--text-color);
   background-color: var(--bg-color);
   border: none;
-  height: 100%;
 }
 
 
@@ -329,4 +324,51 @@ header h2 {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.loading {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 99999;
+  color: var(--text-color);
+}
+
+.loader {
+  border: 12px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 12px solid var(--primary-color);
+  width: 80px;
+  height: 80px;
+  -webkit-animation: spin 2s linear infinite;
+  /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

@@ -45,18 +45,17 @@ const app = {
   randSong: false,
   repeatSong: false,
   renderListSongs: async function () {
-
     this.songs = await fetch(domain + 'GetListSong').then(rs => rs.json());
     let playList = $(".playlist")
     playList.innerHTML = ''
     this.songs.forEach((e, i) => {
       playList.innerHTML += `
       <div class="song" data-set="${i}" >
-      <div class="thumb" style="background-image:url('${e.image_s}')">
+      <div class="thumb" style="background-image:url('${e.thumbnail_s}')">
       </div>
       <div class="body" src="">
-        <h3 class="title">${e.name}</h3>
-        <p class="singer">${e.singer}</p>
+        <h3 class="title">${e.title}</h3>
+        <p class="singer">${e.authorName}</p>
       </div>
       <div class="btn-option" data-set="${i}">
         <i class="fas fa-ellipsis-h"></i>
@@ -68,6 +67,7 @@ const app = {
     </div >
       `
     })
+
     return;
   },
   loadSongToPlayer: function (i) {
@@ -83,7 +83,7 @@ const app = {
         lastActiveSong.classList.remove('active')
       }
       //load song mới
-      rythm.setMusic(song.url)
+      rythm.setMusic(song.songPath)
       audio = rythm.player.audio
       //run progress
       audio.ontimeupdate = () => {
@@ -92,10 +92,10 @@ const app = {
         }
       }
       audio.dataSet = i;
-      cdThum.setAttribute('style', `background-image: url("${song.image}")`)
+      cdThum.setAttribute('style', `background-image: url("${song.thumbnail_l}")`)
       progress.value = 0;
-      playingSongName.innerText = song.name;
-      playingSongSinger.innerHTML = `<span>Ca sĩ: </span> ${song.singer}`;
+      playingSongName.innerText = song.title;
+      playingSongSinger.innerHTML = `<span>Ca sĩ: </span> ${song.authorName}`;
       //đặt trạng thái active cho song mới
       let currentSong = $$('.song')[i];
       currentSong.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
@@ -231,9 +231,14 @@ const app = {
     btns_delete.forEach((b) => {
       b.onclick = () => {
         let deleteIndex = b.dataset.set;
-        console.log(this.songs[deleteIndex].name);
-        this.songs.splice(deleteIndex, 1);
-        this.start();
+        console.log(this.songs[deleteIndex].title);
+        document.querySelector('.loading').style.display = 'flex';
+        fetch(`${domain}Delete?id=${this.songs[deleteIndex].id}`)
+          .then(rs => rs.text())
+          .then(rs => {
+            alert(rs)
+            document.querySelector('.loading').style.display = 'none';
+          })
       }
     })
     //khi click vafo btn yêu thích
@@ -264,9 +269,13 @@ const app = {
         alert('Url là link youtube')
         return;
       }
+      document.querySelector('.loading').style.display = 'flex';
       fetch(`${domain}Download?id=${idVid}`)
-        .then((response) => response.json())
-        .then((data) => console.log(data));
+        .then((response) => response.text())
+        .then((data) => {
+          alert(data)
+          document.querySelector('.loading').style.display = 'none';
+        });
     }
   },
   start: async function () {

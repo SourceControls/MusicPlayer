@@ -15,11 +15,9 @@
 
 <body>
   <div class="add-song">
-    <div class="wrapper">
-      <input type="text" class="input-youtube-url"
-        placeholder="Enter youtube Url video, Ex:https://www.youtube.com/watch?v=p5wqEM_-xjg" />
-      <div class="add-song-progress"></div>
-    </div>
+    <input type="text" class="input-youtube-url"
+      placeholder="Enter youtube Url video, Ex:https://www.youtube.com/watch?v=p5wqEM_-xjg"
+      value="https://www.youtube.com/watch?v=p5wqEM_-xjg" />
     <div class="btn-add-song">
       <i class="fas fa-plus-circle"></i>
       Thêm mới
@@ -72,6 +70,11 @@
   </div>
 
   <div class="lighter rythm neon3 borderColor3 rythm-medium"></div>
+
+  <div class="loading">
+    <div class="loader"></div>
+    <p>Đang xử lý...</p>
+  </div>
   <!-- rythm -->
   <script>
     const domain = window.location.href;
@@ -79,40 +82,22 @@
   <script src="./resource/rythm.js"></script>
   <script src="./resource/js.js"></script>
   <script>
-
     var source = new EventSource(
       domain + 'SSE'
     );
     const addSongProgress = $('.add-song-progress')
     source.onmessage = (e) => {
-      addSongProgress.style.width = e.data + '%';
-
-      if (e.data == 100) {
-        alert('Tải xong!')
-        addSongProgress.style.width = '0%';
+      if (e.data == 'reload') {
+        document.querySelector('.loading').style.display = 'none';
         app.start();
         return;
       }
-
     };
 
     source.addEventListener(
       'open',
       function (e) {
         console.log('connected SSE');
-      },
-      false
-    );
-
-    source.addEventListener(
-      'error',
-      function (e) {
-        if (e.eventPhase == EventSource.CLOSED) source.close();
-        if (e.target.readyState == EventSource.CLOSED) {
-          console.log('disconnected');
-        } else if (e.target.readyState == EventSource.CONNECTING) {
-          console.log('Connecting...');
-        }
       },
       false
     );
