@@ -54,7 +54,7 @@ app.get('/GetListSong', async (req, res) => {
 
     if (!fs.existsSync(`${__dirname}/public/songs/${id}.mp3`)) {
       console.log(`!EXITS ${doc.data().name}`);
-      download(id)
+      download(id, false)
     }
   });
 
@@ -113,32 +113,33 @@ app.listen(port, () => {
 })
 
 
-async function download(vidId) {
+async function download(vidId, saveInfOnFinish = true) {
   //start downloading
   let url = `http://www.youtube.com/watch?v=${vidId}`
   let options = { format: 'mp3', "quality": 'highestaudio', "filter": 'audioonly' }
   let songPath = `${__dirname}/public/songs/${vidId}.mp3`
   console.log("Start download: " + vidId);
   let fstream = fs.createWriteStream(songPath)
-  fstream.on('finish', async () => {
-    //save to firestore
-    let vidInf = (await ytdl.getBasicInfo(`https://www.youtube.com/watch?v=${vidId}`)).videoDetails
-    let songInf = {
-      title: vidInf.title,
-      authorName: vidInf.author.name,
-      authorChannel: vidInf.author.channel_url,
-      length: vidInf.lengthSeconds,
-      thumbnail_s: vidInf.thumbnails[1].url,
-      thumbnail_l: vidInf.thumbnails[vidInf.thumbnails.length - 1].url,
-      youtubeUrl: vidInf.video_url,
-      songPath: `/songs/${vidId}.mp3`,
-      createdTimestamp: Timestamp.now()
-    }
-    await setDoc(doc(db, "songs", vidId), songInf)
-    console.log('Downloaded: ' + url);
+  if (saveInfOnFinish)
+    fstream.on('finish', async () => {
+      //save to firestore
+      let vidInf = (await ytdl.getBasicInfo(`https://www.youtube.com/watch?v=${vidId}`)).videoDetails
+      let songInf = {
+        title: vidInf.title,
+        authorName: vidInf.author.name,
+        authorChannel: vidInf.author.channel_url,
+        length: vidInf.lengthSeconds,
+        thumbnail_s: vidInf.thumbnails[1].url,
+        thumbnail_l: vidInf.thumbnails[vidInf.thumbnails.length - 1].url,
+        youtubeUrl: vidInf.video_url,
+        songPath: `/songs/${vidId}.mp3`,
+        createdTimestamp: Timestamp.now()
+      }
+      await setDoc(doc(db, "songs", vidId), songInf)
+      console.log('Downloaded: ' + url);
 
-    reloadClient();
-  })
+      reloadClient();
+    })
   fstream.on('error', function (err) {
     console.log("ERROR:" + err);
   });

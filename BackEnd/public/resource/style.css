@@ -19,14 +19,14 @@ body {
   background-image: linear-gradient(black, transparent), url('bg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  overflow: hidden;
+  height: 100vh;
 }
 
 html {
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
   position: relative;
-  height: 100vh;
-  overflow: hidden;
 }
 
 .lighter {
@@ -43,6 +43,7 @@ html {
   height: 80vh;
   padding: 40px 0;
   margin-top: 50px;
+  max-height: 1200px;
 }
 
 .btn-toggle-play .icon-pause {
@@ -371,4 +372,36 @@ header h2 {
   100% {
     transform: rotate(360deg);
   }
+}
+
+@media only screen and (max-width: 600px) {
+  .player {
+    flex-direction: column;
+    height: 90vh;
+  }
+
+  .dashboard {
+    min-height: 50vh;
+    padding: 16px;
+  }
+
+  .song-inf {
+    padding: 0;
+  }
+
+  .playlist {
+    min-width: 100%;
+  }
+
+}
+
+@media only screen and (max-width: 440px) {
+  header h4 {
+    font-size: 14px;
+  }
+
+  header h2 {
+    font-size: 20px;
+  }
+
 }
