@@ -203,6 +203,12 @@ const app = {
     const cdBoxWidth = cdBox.offsetWidth;
     const songBox = $('.playlist')
     songBox.onscroll = () => {
+
+      //nếu là mobile thì không scroll
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        return;
+      }
+
       const newCdWidth = (cdBoxWidth - songBox.scrollTop) > 0 ? (cdBoxWidth - songBox.scrollTop / 2) : 0;
       if (newCdWidth >= 130) {
         cdBox.style.width = newCdWidth + 'px';

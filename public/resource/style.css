@@ -89,14 +89,14 @@ header {
 
 header h4 {
   color: var(--primary-color);
-  font-size: 22px;
-  padding-left: 8px;
+  font-size: 1.5rem;
+  padding-left: .5rem;
   border-left: 2px solid var(--text-color);
 }
 
 header h2 {
   color: var(--text-color);
-  font-size: 36px;
+  font-size: 2rem;
 }
 
 .playing-song-singer {
@@ -219,8 +219,8 @@ header h2 {
 }
 
 .song .thumb {
-  width: 44px;
-  height: 44px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   background-size: cover;
   margin: 0 8px;
@@ -233,12 +233,12 @@ header h2 {
 }
 
 .song .title {
-  font-size: 18px;
+  font-size: 1rem;
   color: var(--text-color);
 }
 
 .song .author {
-  font-size: 12px;
+  font-size: .8rem;
   color: var(--text-color);
 }
 
@@ -396,12 +396,12 @@ header h2 {
 }
 
 @media only screen and (max-width: 440px) {
-  header h4 {
-    font-size: 14px;
+  :root {
+    font-size: 13px;
   }
 
-  header h2 {
-    font-size: 20px;
+  .cd {
+    width: 150px;
   }
 
 }
