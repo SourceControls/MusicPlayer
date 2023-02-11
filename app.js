@@ -66,7 +66,7 @@ app.get('/Download', async (req, res) => {
   //check permission
   let permission = await getDoc(doc(db, "config", "end-user-config"));
   if (!permission.data().download) {
-    res.send("Chức năng download hiện đang khóa! Liên hệ để mở")
+    res.send("Chức năng download hiện đang khóa!")
     return;
   }
   //check exist songs
@@ -90,7 +90,7 @@ app.get('/Delete', async (req, res) => {
   //check permissions
   let permission = await getDoc(doc(db, "config", "end-user-config"));
   if (!permission.data().delete) {
-    res.send("Chức năng xóa hiện đang khóa! Liên hệ để mở")
+    res.send("Chức năng xóa hiện đang khóa!")
     return;
   }
 
@@ -134,7 +134,13 @@ async function download(vidId) {
       songPath: `/songs/${vidId}.mp3`,
       createdTimestamp: Timestamp.now()
     }
-    await setDoc(doc(db, "songs", vidId), songInf)
+
+    //prevent upload if song infor existed 
+    let queryDoc = await getDoc(doc(db, "songs", vidId))
+    if (!queryDoc.exists()) {
+      await setDoc(doc(db, "songs", vidId), songInf)
+      return;
+    }
     console.log('Downloaded: ' + url);
 
     reloadClient();
