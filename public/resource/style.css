@@ -19,8 +19,10 @@ body {
   background-image: linear-gradient(black, transparent), url('bg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   overflow: hidden;
   height: 100vh;
+
 }
 
 html {
