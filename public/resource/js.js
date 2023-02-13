@@ -95,7 +95,7 @@ const app = {
       cdThum.setAttribute('style', `background-image: url("${song.thumbnail_l}")`)
       progress.value = 0;
       playingSongName.innerText = song.title;
-      playingSongSinger.innerHTML = `<span>Ca sĩ: </span> ${song.authorName}`;
+      playingSongSinger.innerHTML = `<span>Author: </span> ${song.authorName}`;
       //đặt trạng thái active cho song mới
       let currentSong = $$('.song')[i];
       currentSong.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
@@ -205,7 +205,7 @@ const app = {
     songBox.onscroll = () => {
 
       //nếu là mobile thì không scroll
-      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      if (/Android|webOS|iPhone|iPad|iPod|Tablet|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         return;
       }
 

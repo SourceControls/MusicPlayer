@@ -289,8 +289,9 @@ header h2 {
   position: absolute;
   top: 32px;
   color: var(--text-color);
-  margin-left: 2px;
   z-index: 10;
+  width: 50vw;
+
 }
 
 
@@ -299,18 +300,17 @@ header h2 {
   background-color: var(--bg-color);
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  margin-left: 32px;
 }
 
 
 
 .input-youtube-url {
-  width: 50vw;
-  min-width: 200px;
+  flex: 1;
   position: relative;
   color: var(--text-color);
   background-color: var(--bg-color);
   border: none;
+  padding: 4px 4px;
 }
 
 
@@ -376,15 +376,42 @@ header h2 {
   }
 }
 
-@media only screen and (max-width: 600px) {
+
+
+@media only screen and (max-width: 780px) {
+  :root {
+    font-size: 11px;
+  }
+
+  body {}
+
   .player {
     flex-direction: column;
-    height: 90vh;
+    height: 100vh;
+    margin-top: 8px;
+    padding-bottom: 12px;
+  }
+
+  .control-box {
+    position: relative;
+  }
+
+  .cd {
+    min-width: 200px;
+  }
+
+  .add-song {
+    width: 100%;
+    top: 8px;
+  }
+
+  .btn-add-song {
+    margin-left: 0px;
   }
 
   .dashboard {
-    min-height: 50vh;
     padding: 16px;
+    margin: 0;
   }
 
   .song-inf {
@@ -392,18 +419,11 @@ header h2 {
   }
 
   .playlist {
+    margin: 12px 0 0 0;
     min-width: 100%;
   }
 
-}
-
-@media only screen and (max-width: 440px) {
-  :root {
-    font-size: 13px;
+  .song:last-child {
+    margin-bottom: 32px;
   }
-
-  .cd {
-    width: 150px;
-  }
-
 }
