@@ -6,6 +6,7 @@
   --text-color: rgb(240, 240, 240);
   --bg-color: rgba(104, 104, 104, 0.22);
   --bg-color-dark: rgba(0, 0, 0, 0.259);
+  font-size: 14px;
 }
 
 * {
@@ -94,6 +95,7 @@ header h4 {
   font-size: 1.5rem;
   padding-left: .5rem;
   border-left: 2px solid var(--text-color);
+  margin-bottom: 1.2rem;
 }
 
 header h2 {
@@ -113,7 +115,9 @@ header h2 {
 /* CD */
 .cd {
   display: inline-flex;
-  width: 250px;
+  min-width: 200px;
+  width: 20vw;
+  max-width: 400px;
 }
 
 .cd-thumb {
@@ -221,7 +225,7 @@ header h2 {
 }
 
 .song .thumb {
-  width: 55px;
+  min-width: 55px;
   height: 55px;
   border-radius: 50%;
   background-size: cover;
@@ -229,14 +233,17 @@ header h2 {
 }
 
 .song .body {
-  flex: 1;
   padding: 0 16px;
   color: var(--text-color);
+  max-width: 72%;
 }
 
 .song .title {
   font-size: 1rem;
   color: var(--text-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .song .author {
@@ -249,6 +256,7 @@ header h2 {
   color: var(--text-color);
   font-size: 14px;
   position: relative;
+  margin-left: auto;
 }
 
 .btn-option.active .options {
@@ -383,7 +391,9 @@ header h2 {
     font-size: 11px;
   }
 
-  body {}
+  .playing-song-name {
+    font-size: 1.3rem;
+  }
 
   .player {
     flex-direction: column;
@@ -397,7 +407,7 @@ header h2 {
   }
 
   .cd {
-    min-width: 200px;
+    min-width: 170px;
   }
 
   .add-song {
@@ -425,5 +435,23 @@ header h2 {
 
   .song:last-child {
     margin-bottom: 32px;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .song-inf {
+    flex-direction: column;
+  }
+
+  .song-inf header {
+    margin: 16px 0 0;
+  }
+
+  .playing-song-name {
+    font-size: 1.5rem;
+  }
+
+  .cd {
+    margin: 0 auto;
   }
 }
